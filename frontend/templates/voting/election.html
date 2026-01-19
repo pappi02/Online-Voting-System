@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}{{ election.title }} - Online Voting System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <a href="{{ url_for('voting.dashboard') }}" class="btn btn-outline-secondary mb-3">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ election.title }}</h2>
+                <p class="card-text">{{ election.description }}</p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>Start Date:</strong></p>
+                        <p class="text-muted">{{ election.start_date.strftime('%B %d, %Y %H:%M') }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1"><strong>End Date:</strong></p>
+                        <p class="text-muted">{{ election.end_date.strftime('%B %d, %Y %H:%M') }}</p>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    {% if election.is_ongoing %}
+                        <span class="badge bg-success">
+                            <i class="bi bi-circle-fill"></i> Election is Active
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary">Election Closed</span>
+                    {% endif %}
+                    
+                    {% if user_vote %}
+                        <span class="badge bg-info">
+                            <i class="bi bi-check-circle"></i> You have voted
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        {% if not election.is_ongoing %}
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i> 
+                This election is not currently active. 
+                <a href="{{ url_for('voting.results', election_id=election.id) }}">View results</a>
+            </div>
+        {% elif user_vote %}
+            <div class="alert alert-success">
+                <i class="bi bi-check-circle"></i> 
+                Thank you for voting! You voted for: <strong>{{ user_vote.candidate.name }}</strong>
+            </div>
+            <a href="{{ url_for('voting.results', election_id=election.id) }}" class="btn btn-info">
+                View Current Results
+            </a>
+        {% else %}
+            <h4 class="mb-3">Candidates</h4>
+            {% if candidates %}
+                <div class="row" id="candidates-list">
+                    {% for candidate in candidates %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card candidate-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ candidate.name }}</h5>
+                                {% if candidate.party %}
+                                    <p class="text-muted mb-2">
+                                        <i class="bi bi-flag"></i> {{ candidate.party }}
+                                    </p>
+                                {% endif %}
+                                {% if candidate.bio %}
+                                    <p class="card-text">{{ candidate.bio }}</p>
+                                {% endif %}
+                                <button class="btn btn-primary vote-btn" 
+                                        data-election-id="{{ election.id }}"
+                                        data-candidate-id="{{ candidate.id }}"
+                                        data-candidate-name="{{ candidate.name }}">
+                                    <i class="bi bi-check-circle"></i> Vote for {{ candidate.name }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No candidates have been added yet.
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<!-- Vote Confirmation Modal -->
+<div class="modal fade" id="voteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Your Vote</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to vote for <strong id="candidate-name-confirm"></strong>?</p>
+                <p class="text-danger">
+                    <i class="bi bi-exclamation-triangle"></i> 
+                    This action cannot be undone. You can only vote once.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirm-vote-btn">
+                    Confirm Vote
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let selectedElectionId, selectedCandidateId;
+
+document.querySelectorAll('.vote-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        selectedElectionId = this.dataset.electionId;
+        selectedCandidateId = this.dataset.candidateId;
+        document.getElementById('candidate-name-confirm').textContent = this.dataset.candidateName;
+        
+        const modal = new bootstrap.Modal(document.getElementById('voteModal'));
+        modal.show();
+    });
+});
+
+document.getElementById('confirm-vote-btn').addEventListener('click', function() {
+    this.disabled = true;
+    this.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Submitting...';
+    
+    fetch(`/voting/vote/${selectedElectionId}/${selectedCandidateId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.reload();
+        } else {
+            alert(data.message);
+            this.disabled = false;
+            this.innerHTML = 'Confirm Vote';
+        }
+    })
+    .catch(error => {
+        alert('An error occurred. Please try again.');
+        this.disabled = false;
+        this.innerHTML = 'Confirm Vote';
+    });
+});
+</script>
+{% endblock %}

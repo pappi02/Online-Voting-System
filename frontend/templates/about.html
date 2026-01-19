@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}About - Online Voting System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <h1 class="mb-4">About Our Voting System</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Our Mission</h5>
+                <p class="card-text">
+                    We are committed to providing a secure, accessible, and transparent online voting platform that 
+                    empowers citizens to participate in democratic processes from anywhere, at any time.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">How It Works</h5>
+                <ol>
+                    <li><strong>Register:</strong> Create your account with a valid email address.</li>
+                    <li><strong>Browse Elections:</strong> View all active, upcoming, and past elections.</li>
+                    <li><strong>Cast Your Vote:</strong> Select your preferred candidate and submit your vote.</li>
+                    <li><strong>View Results:</strong> Check real-time results after the election closes.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Security & Privacy</h5>
+                <p class="card-text">
+                    We take security seriously. All votes are encrypted and stored securely. 
+                    Your voting choices are anonymous and cannot be traced back to your identity.
+                    Each user can only vote once per election.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

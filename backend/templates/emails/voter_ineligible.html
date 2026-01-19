@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Eligibility Status Update</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #e74c3c; color: white; padding: 20px; border-radius: 5px 5px 0 0; }
+        .content { padding: 20px; border: 1px solid #ddd; border-radius: 0 0 5px 5px; }
+        .ineligible-badge { display: inline-block; background-color: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; }
+        .reason-box { background-color: #fadbd8; padding: 15px; border-left: 4px solid #e74c3c; margin: 15px 0; }
+        .button { display: inline-block; padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Voter Eligibility Status Update</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ user_first_name }},</p>
+            
+            <p>We are writing to inform you of an update to your voter eligibility status. You are currently marked as <span class="ineligible-badge">INELIGIBLE</span>.</p>
+            
+            <p><strong>Reason for Ineligibility:</strong></p>
+            <div class="reason-box">
+                <p>{{ ineligibility_reason }}</p>
+            </div>
+            
+            <p><strong>What This Means:</strong></p>
+            <ul>
+                <li>You are not currently eligible to vote</li>
+                <li>You cannot participate in elections at this time</li>
+                <li>You may reapply once the eligibility requirements are met</li>
+            </ul>
+            
+            <p><strong>How to Address This:</strong></p>
+            <ol>
+                <li>Review the ineligibility reason carefully</li>
+                <li>Gather any necessary documents or corrections</li>
+                <li>Contact our support team for guidance</li>
+                <li>Reapply for voter eligibility once requirements are met</li>
+            </ol>
+            
+            <p>If you believe this decision is incorrect or if you have questions, please reach out to our support team.</p>
+            
+            <p>
+                <a href="{{ site_url }}/voter/profile" class="button">View Your Profile</a>
+            </p>
+            
+            <p>Contact us at {{ support_email }} for assistance.</p>
+            
+            <p>Best regards,<br>
+            The {{ site_name }} Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated email. Please do not reply directly. For support, contact {{ support_email }}</p>
+        </div>
+    </div>
+</body>
+</html>

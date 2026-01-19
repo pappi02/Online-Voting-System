@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Voter Dashboard - Online Voting System{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Welcome, {{ current_user.full_name }}!</h2>
+
+<!-- Active Elections -->
+<div class="mb-5">
+    <h4 class="mb-3"><i class="bi bi-calendar-check"></i> Active Elections</h4>
+    {% if active_elections %}
+        <div class="row">
+            {% for election in active_elections %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100 {% if election.id in voted_election_ids %}border-success{% endif %}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ election.title }}</h5>
+                        <p class="card-text">{{ election.description[:100] }}...</p>
+                        <p class="text-muted mb-2">
+                            <small>
+                                <i class="bi bi-calendar"></i> Ends: {{ election.end_date.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </p>
+                        {% if election.id in voted_election_ids %}
+                            <span class="badge bg-success mb-2">
+                                <i class="bi bi-check-circle"></i> You have voted
+                            </span>
+                        {% endif %}
+                        <div class="d-flex gap-2">
+                            <a href="{{ url_for('voting.view_election', election_id=election.id) }}" 
+                               class="btn btn-primary btn-sm">
+                                {% if election.id in voted_election_ids %}
+                                    View Details
+                                {% else %}
+                                    Vote Now
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No active elections at the moment.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Upcoming Elections -->
+<div class="mb-5">
+    <h4 class="mb-3"><i class="bi bi-calendar-plus"></i> Upcoming Elections</h4>
+    {% if upcoming_elections %}
+        <div class="row">
+            {% for election in upcoming_elections %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ election.title }}</h5>
+                        <p class="card-text">{{ election.description[:100] }}...</p>
+                        <p class="text-muted">
+                            <small>
+                                <i class="bi bi-calendar"></i> Starts: {{ election.start_date.strftime('%Y-%m-%d %H:%M') }}
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No upcoming elections scheduled.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Past Elections -->
+<div class="mb-5">
+    <h4 class="mb-3"><i class="bi bi-clock-history"></i> Past Elections</h4>
+    {% if past_elections %}
+        <div class="list-group">
+            {% for election in past_elections[:5] %}
+            <a href="{{ url_for('voting.results', election_id=election.id) }}" 
+               class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">{{ election.title }}</h6>
+                    <small class="text-muted">{{ election.end_date.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <small class="text-muted">Click to view results</small>
+            </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No past elections found.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

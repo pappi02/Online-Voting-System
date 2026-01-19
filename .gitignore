@@ -1,0 +1,245 @@
+# iVote Systems - Git Ignore
+
+# =========================
+# Python & Django
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv*
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/media
+/staticfiles
+.env
+.env.local
+.env.*.local
+
+# Django IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# Node & React
+# =========================
+node_modules/
+npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build files
+build/
+dist/
+out/
+.next/
+coverage/
+
+# IDE & Editor
+.DS_Store
+.AppleDouble
+.LSOverride
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.vscode-test
+.history/
+.ionide/
+
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+postgresql.conf
+pg_hba.conf
+pgpass
+
+# =========================
+# System Files
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.env.swp
+*.pid
+
+# =========================
+# Testing
+# =========================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+*.cover
+.nox/
+.nyc_output
+coverage
+*.lcov
+
+# =========================
+# IDE Specific
+# =========================
+.vscode/
+.vscode-test
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.netrw_history
+*~
+tags
+
+# =========================
+# Logs & Temporary Files
+# =========================
+logs/
+*.log
+*.logs
+*.pid
+*.seed
+*.pid.lock
+tmp/
+temp/
+
+# =========================
+# Security - Keep these files private
+# =========================
+.env
+.env.*
+!.env.example
+!.env.example.local
+secrets/
+*.pem
+*.key
+private_key.*
+certificates/
+
+# =========================
+# OS Specific
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.directory
+.BridgesSort
+
+# =========================
+# Docker
+# =========================
+.dockerignore
+docker-compose.override.yml
+
+# =========================
+# CI/CD
+# =========================
+.github/workflows/secrets/
+.gitlab-ci.yml.local
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.temp
+*.orig
+*.rej
+.mergify.yml
+.pytest.ini
+setup.cfg
+*.egg
+*.whl
+
+# =========================
+# Documentation
+# =========================
+site/
+docs/_build/
+
+# =========================
+# Package Managers
+# =========================
+.pnp
+.pnp.js
+dist-ssr
+
+# =========================
+# Cache
+# =========================
+.cache/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Backup files
+*.backup
+*.bkp
+backup/
+
+# OS
+*.exe
+*.app
+*.dmg
+*.AppImage
+
+# Project specific
+media/uploads/
+static/collected/
+backups/

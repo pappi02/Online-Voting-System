@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Voter Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #f39c12; color: white; padding: 20px; border-radius: 5px 5px 0 0; }
+        .content { padding: 20px; border: 1px solid #ddd; border-radius: 0 0 5px 5px; }
+        .warning-badge { display: inline-block; background-color: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; }
+        .button { display: inline-block; padding: 10px 20px; background-color: #f39c12; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .checklist { margin: 15px 0; padding: 15px; background-color: #fef5e7; border-left: 4px solid #f39c12; }
+        .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Action Required: Complete Your Verification</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ user_first_name }},</p>
+            
+            <p>This is a reminder that your voter registration is <span class="warning-badge">INCOMPLETE</span>. You are <strong>{{ days_remaining }} days</strong> away from the verification deadline.</p>
+            
+            <p><strong>Deadline:</strong> {{ deadline_date }}</p>
+            
+            <p><strong>Verification Checklist:</strong></p>
+            <div class="checklist">
+                <p>
+                    {% if profile_complete %}
+                    ✓ Profile Complete
+                    {% else %}
+                    ✗ Complete your profile information
+                    {% endif %}
+                </p>
+                <p>
+                    {% if documents_verified %}
+                    ✓ Documents Verified
+                    {% else %}
+                    ✗ Upload and verify your documents
+                    {% endif %}
+                </p>
+                <p>
+                    {% if eligibility_confirmed %}
+                    ✓ Eligibility Confirmed
+                    {% else %}
+                    ✗ Your eligibility will be confirmed after all steps are complete
+                    {% endif %}
+                </p>
+            </div>
+            
+            <p><strong>What You Need to Do:</strong></p>
+            <ol>
+                <li>Log in to your account</li>
+                <li>Complete any missing profile information</li>
+                <li>Upload and verify your required documents</li>
+                <li>Submit your verification request</li>
+            </ol>
+            
+            <p><strong>Why This Is Important:</strong></p>
+            <ul>
+                <li>Incomplete registrations may be cancelled after the deadline</li>
+                <li>You won't be able to vote without completing verification</li>
+                <li>The sooner you complete it, the sooner you can participate in elections</li>
+            </ul>
+            
+            <p>
+                <a href="{{ site_url }}/voter/profile" class="button">Complete Your Registration Now</a>
+            </p>
+            
+            <p>If you have any questions or need assistance, please contact us at {{ support_email }}</p>
+            
+            <p>Best regards,<br>
+            The {{ site_name }} Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated email. Please do not reply directly. For support, contact {{ support_email }}</p>
+        </div>
+    </div>
+</body>
+</html>

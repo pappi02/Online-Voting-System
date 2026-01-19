@@ -1,0 +1,52 @@
+[run]
+# Coverage configuration for iVote Systems
+source = .
+omit =
+    */tests.py
+    */test_*.py
+    */__pycache__/*
+    */migrations/*
+    */venv/*
+    */.venv/*
+    */virtualenv/*
+    */site-packages/*
+    */manage.py
+    */wsgi.py
+    */asgi.py
+
+branch = True
+concurrency = multiprocessing
+parallel = True
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+sort = Cover
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    @abstractmethod
+    @abc.abstractmethod
+    if 0:
+    if False:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+include =
+    accounts/*
+    elections/*
+    voting/*
+    auditing/*
+
+[html]
+directory = coverage_html_report
+title = iVote Systems Test Coverage Report
+
+[xml]
+output = coverage.xml

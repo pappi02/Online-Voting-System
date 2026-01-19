@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Results - {{ election.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <a href="{{ url_for('voting.dashboard') }}" class="btn btn-outline-secondary mb-3">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">{{ election.title }} - Results</h2>
+                <p class="card-text">{{ election.description }}</p>
+                <p class="text-muted">
+                    <i class="bi bi-people"></i> Total Votes: <strong>{{ total_votes }}</strong>
+                </p>
+            </div>
+        </div>
+        
+        {% if results %}
+            <div class="row">
+                {% for result in results %}
+                <div class="col-md-6 mb-4">
+                    <div class="card {% if loop.index == 1 %}border-success{% endif %}">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0">
+                                    {% if loop.index == 1 %}
+                                        <i class="bi bi-trophy-fill text-warning"></i>
+                                    {% endif %}
+                                    {{ result.candidate.name }}
+                                </h5>
+                                <span class="badge bg-primary">{{ result.votes }} votes</span>
+                            </div>
+                            
+                            {% if result.candidate.party %}
+                                <p class="text-muted mb-2">
+                                    <i class="bi bi-flag"></i> {{ result.candidate.party }}
+                                </p>
+                            {% endif %}
+                            
+                            <div class="progress mb-2" style="height: 25px;">
+                                <div class="progress-bar {% if loop.index == 1 %}bg-success{% endif %}" 
+                                     role="progressbar" 
+                                     style="width: {{ result.percentage }}%"
+                                     aria-valuenow="{{ result.percentage }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    {{ result.percentage }}%
+                                </div>
+                            </div>
+                            
+                            {% if result.candidate.bio %}
+                                <p class="card-text small text-muted">{{ result.candidate.bio }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No votes have been cast yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

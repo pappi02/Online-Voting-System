@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}All Results - Admin{% endblock %}
+
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-bar-chart"></i> All Election Results</h2>
+
+{% if elections %}
+    <div class="accordion" id="resultsAccordion">
+        {% for election in elections %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button {% if not loop.first %}collapsed{% endif %}" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#election{{ election.id }}">
+                    <strong>{{ election.title }}</strong>
+                    <span class="badge bg-primary ms-2">{{ election.total_votes }} votes</span>
+                </button>
+            </h2>
+            <div id="collapse{{ election.id }}" class="accordion-collapse collapse {% if loop.index == 1 %}show{% endif %}">
+                <div class="accordion-body">
+                    <p class="text-muted">{{ election.description }}</p>
+                    <p class="mb-3">
+                        <strong>Period:</strong> 
+                        {{ election.start_date.strftime('%Y-%m-%d') }} - {{ election.end_date.strftime('%Y-%m-%d') }}
+                    </p>
+                    <a href="{{ url_for('voting.results', election_id=election.id) }}" 
+                       class="btn btn-primary btn-sm">
+                        <i class="bi bi-bar-chart"></i> View Results
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No elections found.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

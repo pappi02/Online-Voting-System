@@ -1,0 +1,12 @@
+# Ignore all credential files
+.env.email
+.env.production
+.env.staging
+*.key
+*.pem
+*.cert
+credentials/
+secrets/
+
+# Keep example files
+!.env.email.example
