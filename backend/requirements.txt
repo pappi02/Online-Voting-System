@@ -14,7 +14,7 @@ psycopg2-binary==2.9.9
 django-redis==5.4.0
 
 # Security & Encryption
-cryptography==41.0.7
+cryptography==50.0.2
 pyotp==2.9.0
 qrcode==8.0
 python-decouple==3.8
@@ -31,14 +31,14 @@ Pillow==13.0.0
 # Real-Time & WebSockets
 channels==4.0.0
 channels-redis==4.1.0
-daphne==4.0.0
+daphne==4.2.3
 
 # Task Queue & Caching
 celery==5.6.2
 redis==7.1.0
 
 # Testing
-pytest==9.0.2
+pytest==9.2.0
 pytest-django==4.11.1
 pytest-cov==7.0.0
 factory-boy==3.3.0
