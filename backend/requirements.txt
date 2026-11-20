@@ -1,8 +1,8 @@
 # iVote Systems (iVS) - Backend Requirements
 
 # Core Django & REST
-Django==5.0.1
-djangorestframework==3.14.0
+Django==5.2.19
+djangorestframework==3.18.3
 djangorestframework-simplejwt==5.5.1
 django-filter==23.5
 django-cors-headers==4.9.0
@@ -26,7 +26,7 @@ twilio==9.9.1
 # Analytics & Exports
 openpyxl==3.1.2
 reportlab==4.0.8
-Pillow==10.2.0
+Pillow==13.0.0
 
 # Real-Time & WebSockets
 channels==4.0.0
@@ -44,10 +44,10 @@ pytest-cov==7.0.0
 factory-boy==3.3.0
 
 # Code Quality
-black==23.12.1
+black==26.10.1
 flake8==6.1.0
 isort==5.13.2
-pylint==3.0.3
+pylint==4.1.4
 
 # Development
 django-extensions==3.2.3
